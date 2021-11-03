@@ -2,7 +2,7 @@
 
 require 'active_model'
 
-module Lead
+module Readymade
   class Form
     include ActiveModel::Model
 

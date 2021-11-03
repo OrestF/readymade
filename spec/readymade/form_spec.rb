@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Lead::Form do
+RSpec.describe Readymade::Form do
   describe '#new' do
     let(:params) do
       {

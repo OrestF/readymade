@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Lead
+module Readymade
   class Response
     class NonKeywordArgumentsError < StandardError; end
 

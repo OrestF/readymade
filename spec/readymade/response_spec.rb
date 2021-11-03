@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Lead::Response do
+RSpec.describe Readymade::Response do
   describe '#new' do
     let(:args) do
       {

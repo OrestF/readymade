@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative 'lib/lead/version'
+require_relative 'lib/readymade/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'lead'
-  spec.version       = Lead::VERSION
+  spec.name          = 'readymade'
+  spec.version       = Readymade::VERSION
   spec.authors       = ['OrestF']
   spec.email         = ['falchuko@gmail.com']
 
   spec.summary       = 'Set of base classes for ABDI architecture'
   spec.description   = 'Set of base classes for ABDI architecture'
-  spec.homepage      = 'https://github.com/OrestF/lead'
+  spec.homepage      = 'https://github.com/OrestF/readymade'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
 

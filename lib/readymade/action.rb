@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'lead/response'
+require 'readymade/response'
 
-module Lead
+module Readymade
   class Action
     class NonKeywordArgumentsError < StandardError; end
 

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'lead/response'
-require 'lead/action'
+require 'readymade/response'
+require 'readymade/action'
 
-module Lead
-  class Operation < Lead::Action
+module Readymade
+  class Operation < Readymade::Action
     attr_reader :form, :record, :record_params
 
     private

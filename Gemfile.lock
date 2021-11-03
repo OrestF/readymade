@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lead (0.1.0)
+    readymade (0.2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -44,8 +44,8 @@ PLATFORMS
 DEPENDENCIES
   activemodel
   byebug
-  lead!
   rake
+  readymade!
   rspec
 
 BUNDLED WITH
