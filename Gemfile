@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in virgin.gemspec
+# Specify your gem's dependencies in lead.gemspec
 gemspec
 
 gem 'activemodel'

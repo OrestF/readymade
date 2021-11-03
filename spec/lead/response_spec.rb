@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Virgin::Response do
+RSpec.describe Lead::Response do
   describe '#new' do
     let(:args) do
       {

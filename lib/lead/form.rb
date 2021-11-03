@@ -2,7 +2,7 @@
 
 require 'active_model'
 
-module Virgin
+module Lead
   class Form
     include ActiveModel::Model
 

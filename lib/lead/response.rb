@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Virgin
+module Lead
   class Response
     class NonKeywordArgumentsError < StandardError; end
 

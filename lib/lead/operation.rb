@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'virgin/response'
-require 'virgin/action'
+require 'lead/response'
+require 'lead/action'
 
-module Virgin
-  class Operation < Virgin::Action
+module Lead
+  class Operation < Lead::Action
     attr_reader :form, :record, :record_params
 
     private

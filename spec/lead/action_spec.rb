@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Virgin::Action do
+RSpec.describe Lead::Action do
   describe '#new' do
     let(:args) do
       {

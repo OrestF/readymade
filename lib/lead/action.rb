@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'virgin/response'
+require 'lead/response'
 
-module Virgin
+module Lead
   class Action
     class NonKeywordArgumentsError < StandardError; end
 

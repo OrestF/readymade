@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Virgin::Form do
+RSpec.describe Lead::Form do
   describe '#new' do
     let(:params) do
       {

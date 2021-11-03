@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-require_relative 'lib/virgin/version'
+require_relative 'lib/lead/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'virgin'
-  spec.version       = Virgin::VERSION
+  spec.name          = 'lead'
+  spec.version       = Lead::VERSION
   spec.authors       = ['OrestF']
   spec.email         = ['falchuko@gmail.com']
 
   spec.summary       = 'Set of base classes for ABDI architecture'
   spec.description   = 'Set of base classes for ABDI architecture'
-  spec.homepage      = 'https://github.com/OrestF/virgin'
+  spec.homepage      = 'https://github.com/OrestF/lead'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
 
-  spec.metadata['allowed_push_host'] = 'rubygems.org'
+  # spec.metadata['allowed_push_host'] = 'rubygems.org'
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
