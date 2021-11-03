@@ -85,10 +85,11 @@ module Readymade
       return if [from, to].any?(&:blank?)
 
       errors = from.errors.instance_variable_get('@messages')
-      errors.merge!(to.errors.instance_variable_get('@messages'))
+      errors.to_h.merge!(to.errors.instance_variable_get('@messages'))
 
       to.errors.instance_variable_set('@messages', errors)
-      to.errors.messages.transform_values!(&:uniq)
+      to.errors.messages.transform_values!(&:uniq) # Does not work with rails 6.1
+    rescue FrozenError => _e
     end
 
     def humanized_name
