@@ -1,8 +1,6 @@
-# Lead
+# Readymade
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/readymade`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gems contains basic components to follow [ABDI architecture](https://github.com/OrestF/OrestF/blob/master/abdi/ABDI_architecture.md)
 
 ## Installation
 
@@ -22,7 +20,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Inherit your components from:
+* `Readymade::Response`
+* `Readymade::Form`
+* `Readymade::Action`
+* `Readymade::Operation`
 
 ## Development
 

@@ -26,7 +26,7 @@ module Readymade
       @params&.slice!(*permitted_attributes) # if permitted_attributes.present?
 
       # dynamically creates attr accessors
-      @params&.keys&.each do |key|
+      @permitted_attributes&.each do |key|
         singleton_class.class_eval do
           attr_accessor key
         end
