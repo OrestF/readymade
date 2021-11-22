@@ -20,8 +20,6 @@ module Readymade
       @args.each do |name, value|
         instance_variable_set("@#{name}", value)
       end
-
-      # yield if block_given?
     end
 
     def call; end

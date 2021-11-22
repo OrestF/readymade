@@ -23,8 +23,34 @@ Or install it yourself as:
 Inherit your components from:
 * `Readymade::Response`
 * `Readymade::Form`
+* `Readymade::InstantForm`
 * `Readymade::Action`
 * `Readymade::Operation`
+
+### Readymade::Response
+
+```TODO: add```
+
+### Readymade::Form
+
+```TODO: add```
+
+### Readymade::InstantForm
+
+Permit params and validates presence inline
+
+```ruby
+Readymade::InstantForm.new(my_params, permitted: %i[name phone], required: %i[email]) # permits: name, phone, email; validates on presence: email
+```
+
+### Readymade::Action
+
+```TODO: add```
+
+### Readymade::Operation
+
+```TODO: add```
+
 
 ## Development
 

@@ -2,6 +2,7 @@
 
 require 'readymade/action'
 require 'readymade/form'
+require 'readymade/instant_form'
 require 'readymade/operation'
 require 'readymade/response'
 require 'readymade/version'

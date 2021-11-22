@@ -14,6 +14,8 @@ module Readymade
     end
 
     def form_valid?
+      build_form if @form.nil? && defined?(:build_form)
+
       form.validate
     end
 
