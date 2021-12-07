@@ -84,11 +84,15 @@ module Readymade
     def sync_errors(from: self, to: record)
       return if [from, to].any?(&:blank?)
 
-      errors = from.errors.instance_variable_get('@messages').to_h
-      errors.merge!(to.errors.instance_variable_get('@messages').to_h)
+      if Rails.version.to_f > 6.0
+        to.errors.merge!(from.errors)
+      else
+        errors = from.errors.instance_variable_get('@messages').to_h
+        errors.merge!(to.errors.instance_variable_get('@messages').to_h)
 
-      to.errors.instance_variable_set('@messages', errors)
-      to.errors.messages.transform_values!(&:uniq) # Does not work with rails 6.1
+        to.errors.instance_variable_set('@messages', errors)
+        to.errors.messages.transform_values!(&:uniq) # Does not work with rails 6.1
+      end
     rescue FrozenError => _e
     end
 

@@ -26,7 +26,7 @@ module Readymade
     def record_valid?
       return true if record.errors.none? && record.valid?
 
-      sync_errors_to_form && false
+      false
     end
 
     def save_record
@@ -43,6 +43,7 @@ module Readymade
 
     def validation_fail(status = :validation_fail, args = {})
       sync_errors_to_form
+
       response(status, args.merge!(record: record,
                                    record_params: record_params,
                                    form: form,
