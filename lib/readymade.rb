@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'readymade/controller/serialization'
 require 'readymade/action'
 require 'readymade/form'
 require 'readymade/instant_form'

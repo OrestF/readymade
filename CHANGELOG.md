@@ -1,6 +1,12 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.6] - 2021-12-20
+
+### Features
+
+* Add Readymade::Controller::Serialization
+
 ## [0.1.5] - 2021-12-07
 
 ### Improvements

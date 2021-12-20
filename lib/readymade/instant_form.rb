@@ -2,6 +2,5 @@
 
 module Readymade
   class InstantForm < Form
-
   end
 end
