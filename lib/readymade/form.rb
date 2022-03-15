@@ -144,5 +144,53 @@ module Readymade
     def nested_forms_mapping
       {}
     end
+
+    # EXAMPLE
+    # class Items::Forms::Create::Value < ::Readymade::Form
+    #   PERMITTED_ATTRIBUTES = %i[attr1 attr2].freeze
+    #   REQUIRED_ATTRIBUTES = %i[attr1].freeze
+    #
+    #   class Value < ::Readymade::Form::Value
+    #     def to_h
+    #       {
+    #         vat_percent: Item::VAT_OPTIONS,
+    #         price_type: Item.price_types.keys,
+    #         item_category: args[:company].item_categories
+    #       }
+    #     end
+    #   end
+
+    # @form_options = Items::Forms::Create::Value.new(company: current_company)
+    # f.association :item_category, collection: @form_options[:item_category]
+
+    def self.form_options(**args)
+      Readymade::Form::FormOptions.new(**args.merge!(form_class: self))
+    end
+    class FormOptions
+      attr_reader :args
+
+      def initialize(**args)
+        @args = args
+        @f_class = args.delete(:form_class)
+      end
+
+      def [](key)
+        to_h[key]
+      end
+
+      def to_h
+        raise Readymade::Error.new('define form_options on your form') unless (f = @f_class.new({}, @args)).respond_to?(:form_options)
+
+        f.form_options
+      end
+
+      def as_json(options = {})
+        to_h.as_json(options)
+      end
+
+      def required?(attr)
+        @f_class::REQUIRED_ATTRIBUTES.include?(attr.to_sym)
+      end
+    end
   end
 end

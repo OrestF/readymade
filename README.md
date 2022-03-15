@@ -1,4 +1,4 @@
-# Readymade
+# Readymade 0.1.7
 
 This gems contains basic components to follow [ABDI architecture](https://github.com/OrestF/OrestF/blob/master/abdi/ABDI_architecture.md)
 
@@ -35,6 +35,41 @@ Inherit your components from:
 
 ```TODO: add```
 
+#### #form_options
+
+```ruby
+# app/forms/my_form.rb
+
+class MyForm < Readymade::Form
+  PERMITTED_ATTRIBUTES = %i[email name category country]
+  REQUIRED_ATTRIBUTES = %i[email]
+  
+  def form_options
+    {
+      categories: args[:company].categories,
+      countries: Country.all
+    }
+  end
+end
+```
+
+```ruby
+# app/controllers/items_controller.rb
+
+def new
+  @form_options = MyForm.form_options(company: current_company)
+end
+```
+
+```slim
+/ app/views/items/new.html.slim
+
+= f.select :category, collection: @form_options[:categories]
+= f.select :country, collection: @form_options[:countries]
+= f.text_field :email, required: @form_options.required?(:email) # true
+= f.text_field :name, required: @form_options.required?(:name) # false
+```
+
 ### Readymade::InstantForm
 
 Permit params and validates presence inline
@@ -60,7 +95,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/readymade. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/readymade/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/OrestF/readymade. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/readymade/blob/master/CODE_OF_CONDUCT.md).
 
 
 ## License
