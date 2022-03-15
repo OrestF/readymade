@@ -31,6 +31,7 @@ module Readymade
           attr_accessor key
         end
       end
+
       # automatically validates all REQUIRED_ATTRIBUTES
       singleton_class.validates(*required_attributes, presence: true) if required_attributes.present?
 
@@ -52,8 +53,13 @@ module Readymade
         next if params[attr].blank?
 
         if form_class.is_a?(Array)
-          n_forms = params[attr].map { |_i, attrs| form_class[0].new(attrs) }
-
+          n_forms = if params[attr].is_a?(Hash)
+                      # { 0 => {id: 1, name: 'my name'}, 1 => { id: 2, name: 'other name' }}
+                      params[attr].map { |_i, attrs| form_class[0].new(attrs) }
+                    else
+                      # [{id: 1, name: 'my name'}, { id: 2, name: 'other name' }]
+                      params[attr].map { |attrs| form_class[0].new(attrs) }
+                    end
           @nested_forms.push(*n_forms)
           define_singleton_method("#{attr}_forms") { n_forms }
         else
@@ -71,6 +77,7 @@ module Readymade
       nested_forms.compact.map(&:validate).all? || sync_nested_errors(nested_forms)
     end
 
+    # copy errors from nested forms into parent form
     def sync_nested_errors(nested_forms)
       nested_forms.each do |n_form|
         n_form.errors.each do |code, text|
@@ -81,11 +88,16 @@ module Readymade
       false
     end
 
+    # sync errors from form to record or vice-versa
     def sync_errors(from: self, to: record)
       return if [from, to].any?(&:blank?)
 
       if Rails.version.to_f > 6.0
-        to.errors.merge!(from.errors)
+        from.errors.messages.each do |key, values|
+          Array.wrap(values).uniq.each do |uv|
+            to.errors.add(key, uv)
+          end
+        end
       else
         errors = from.errors.instance_variable_get('@messages').to_h
         errors.merge!(to.errors.instance_variable_get('@messages').to_h)
