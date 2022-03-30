@@ -147,21 +147,19 @@ module Readymade
 
     # EXAMPLE
     # class Items::Forms::Create::Value < ::Readymade::Form
-    #   PERMITTED_ATTRIBUTES = %i[attr1 attr2].freeze
-    #   REQUIRED_ATTRIBUTES = %i[attr1].freeze
+    #   PERMITTED_ATTRIBUTES = %i[vat_percent price_type item_category].freeze
+    #   REQUIRED_ATTRIBUTES = %i[item_category].freeze
     #
-    #   class Value < ::Readymade::Form::Value
-    #     def to_h
-    #       {
-    #         vat_percent: Item::VAT_OPTIONS,
-    #         price_type: Item.price_types.keys,
-    #         item_category: args[:company].item_categories
-    #       }
-    #     end
+    #   def form_options
+    #     {
+    #       vat_percent: Item::VAT_OPTIONS,
+    #       price_type: Item.price_types.keys,
+    #       item_category: args[:company].item_categories
+    #     }
     #   end
 
-    # @form_options = Items::Forms::Create::Value.new(company: current_company)
-    # f.association :item_category, collection: @form_options[:item_category]
+    # @form = Items::Forms::Create.form_options(company: current_company)
+    # f.association :item_category, collection: @form[:item_category], required: @form.required?(:item_category)
 
     def self.form_options(**args)
       Readymade::Form::FormOptions.new(**args.merge!(form_class: self))

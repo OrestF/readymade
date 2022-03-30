@@ -1,4 +1,4 @@
-# Readymade 0.1.7
+# Readymade 0.1.8
 
 This gems contains basic components to follow [ABDI architecture](https://github.com/OrestF/OrestF/blob/master/abdi/ABDI_architecture.md)
 
@@ -29,13 +29,35 @@ Inherit your components from:
 
 ### Readymade::Response
 
-```TODO: add```
+```ruby
+response = Readymade::Response.new(:success, my_data: data)
+response.success? # true
+response =Readymade::Response.new(:fail, errors: errors)
+response.success? # false
+response.fail? # true
+response.status # 'fail'
+response.data # { errors: { some: 'errors' } }
+```
 
 ### Readymade::Form
 
-```TODO: add```
+Check more form features examples in `lib/readymade/form.rb`
+```ruby
+class Orders::Forms::Create < Readymade::Form
+  PERMITTED_ATTRIBUTES = %i[email name category country customer]
+  REQUIRED_ATTRIBUTES = %i[email]
 
-#### #form_options
+  validates :customer, presence: true, if: args[:validate_customer]
+end
+
+order_form = Orders::Forms::Create.new(params, order: order, validate_customer: false)
+
+order_form.valid? # true
+
+
+```
+
+#### form_options
 
 ```ruby
 # app/forms/my_form.rb
@@ -57,17 +79,17 @@ end
 # app/controllers/items_controller.rb
 
 def new
-  @form_options = MyForm.form_options(company: current_company)
+  @form = MyForm.form_options(company: current_company)
 end
 ```
 
 ```slim
 / app/views/items/new.html.slim
 
-= f.select :category, collection: @form_options[:categories]
-= f.select :country, collection: @form_options[:countries]
-= f.text_field :email, required: @form_options.required?(:email) # true
-= f.text_field :name, required: @form_options.required?(:name) # false
+= f.select :category, collection: @form[:categories]
+= f.select :country, collection: @form[:countries]
+= f.text_field :email, required: @form.required?(:email) # true
+= f.text_field :name, required: @form.required?(:name) # false
 ```
 
 ### Readymade::InstantForm
@@ -80,11 +102,46 @@ Readymade::InstantForm.new(my_params, permitted: %i[name phone], required: %i[em
 
 ### Readymade::Action
 
-```TODO: add```
+```ruby
+class Orders::Actions::SendNotifications < Readymade::Action
+  def call
+    send_email
+    send_push
+    send_slack
+
+    response(:success, record: record, any_other_data: data)
+  end
+end
+```
+
+```ruby
+response = Orders::Actions::SendNotifications.call(order: order)
+
+response.fail? # false
+response.success? # true
+response.data[:record]
+response.data[:any_other_data]
+```
 
 ### Readymade::Operation
 
-```TODO: add```
+Provides set of help methods like: `build_form`, `form_valid?`, `validation_fail`, `save_record`, etc.
+```ruby
+class Orders::Operations::Create < Readymade::Operation
+  def call
+    build_record
+    build_form
+    return validation_fail unless form_valid?
+
+    assign_attributes
+    return validation_fail unless record_valid?
+
+    save_record
+
+    success(record: record)
+  end
+end
+```
 
 
 ## Development

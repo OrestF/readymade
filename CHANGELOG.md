@@ -1,6 +1,12 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.8] - 2022-03-30
+
+### Improvements
+
+* Improve README.md and form examples
+
 ## [0.1.6] - 2021-12-20
 
 ### Features
