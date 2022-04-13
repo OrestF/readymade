@@ -2,6 +2,12 @@
 
 This gems contains basic components to follow [ABDI architecture](https://github.com/OrestF/OrestF/blob/master/abdi/ABDI_architecture.md)
 
+### Tested with ruby:
+
+- 2.7
+- 3.0
+- 3.1
+
 ## Installation
 
 Add this line to your application's Gemfile:

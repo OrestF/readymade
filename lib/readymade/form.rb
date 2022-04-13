@@ -177,7 +177,7 @@ module Readymade
       end
 
       def to_h
-        raise Readymade::Error.new('define form_options on your form') unless (f = @f_class.new({}, @args)).respond_to?(:form_options)
+        raise Readymade::Error.new('define form_options on your form') unless (f = @f_class.new({}, **@args)).respond_to?(:form_options)
 
         f.form_options
       end

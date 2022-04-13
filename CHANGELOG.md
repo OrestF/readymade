@@ -1,6 +1,12 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2022-04-13
+
+### Improvements
+
+* Add support for ruby 3.0, 3.1
+
 ## [0.1.8] - 2022-03-30
 
 ### Improvements

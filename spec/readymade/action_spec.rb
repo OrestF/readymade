@@ -11,13 +11,58 @@ RSpec.describe Readymade::Action do
       }
     end
 
-    it 'creates instance variables from arguments' do
-      instance = described_class.new(**args)
+    describe '#new' do
+      it 'creates instance variables from arguments' do
+        instance = described_class.new(**args)
 
-      args.each_key do |key|
-        expect(instance.instance_variable_get("@#{key}")).to eq(args[key])
+        args.each_key do |key|
+          expect(instance.instance_variable_get("@#{key}")).to eq(args[key])
+        end
+        expect(instance.data).to eq(args)
       end
-      expect(instance.data).to eq(args)
+
+      context 'with hash as arguments' do
+        it 'creates instance variables from arguments' do
+          instance = described_class.new(args)
+
+          args.each_key do |key|
+            expect(instance.instance_variable_get("@#{key}")).to eq(args[key])
+          end
+          expect(instance.data).to eq(args)
+        end
+      end
+
+      context 'without arguments' do
+        it 'creates instance variables from arguments' do
+          instance = described_class.new
+
+          expect(instance.data).to be_empty
+          expect(instance.args).to be_empty
+        end
+      end
+    end
+
+    describe '#call' do
+      class TestCallMethod < Readymade::Action
+        def call
+          @args
+        end
+      end
+      it 'creates instance variables from arguments' do
+        expect(TestCallMethod.call(**args)).to eq(args)
+      end
+
+      context 'with hash as arguments' do
+        it 'creates instance variables from arguments' do
+          expect(TestCallMethod.call(args)).to eq(args)
+        end
+      end
+
+      context 'without arguments' do
+        it 'creates instance variables from arguments' do
+          expect(TestCallMethod.call).to be_empty
+        end
+      end
     end
   end
 end

@@ -24,6 +24,19 @@ RSpec.describe Readymade::Response do
       end
     end
 
+    context 'success with hash argument' do
+      let(:status) { 'success' }
+
+      it 'creates data object and status method' do
+        response = described_class.new(status, args)
+
+        expect(response.success?).to eq(true)
+        expect(response.fail?).to eq(false)
+        expect(response.custom_status?).to eq(false)
+        expect(response.data).to eq(args)
+      end
+    end
+
     context 'fail' do
       let(:status) { 'fail' }
 

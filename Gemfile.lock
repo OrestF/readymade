@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    readymade (0.1.7)
+    readymade (0.2.0)
 
 GEM
   remote: https://rubygems.org/
