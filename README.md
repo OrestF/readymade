@@ -1,12 +1,12 @@
-# Readymade 0.1.8
+# Readymade 0.2.1
 
 This gems contains basic components to follow [ABDI architecture](https://github.com/OrestF/OrestF/blob/master/abdi/ABDI_architecture.md)
 
 ### Tested with ruby:
 
-- 2.7
-- 3.0
 - 3.1
+- 3.0
+- 2.7
 
 ## Installation
 
@@ -38,7 +38,7 @@ Inherit your components from:
 ```ruby
 response = Readymade::Response.new(:success, my_data: data)
 response.success? # true
-response =Readymade::Response.new(:fail, errors: errors)
+response = Readymade::Response.new(:fail, errors: errors)
 response.success? # false
 response.fail? # true
 response.status # 'fail'

@@ -25,7 +25,7 @@ module Readymade
 
         render_json(
           {
-            items: serialize_collection(paginate(collection, options), options),
+            (options.delete(:root).presence || :items) => serialize_collection(paginate(collection, options), options),
             count: collection.count
           },
           options[:status] || :ok
