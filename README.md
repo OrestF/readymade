@@ -1,4 +1,6 @@
-# Readymade 0.2.1
+# Readymade
+
+[![Gem Version](https://badge.fury.io/rb/readymade.png)](https://badge.fury.io/rb/readymade)
 
 This gems contains basic components to follow [ABDI architecture](https://github.com/OrestF/OrestF/blob/master/abdi/ABDI_architecture.md)
 
@@ -149,6 +151,49 @@ class Orders::Operations::Create < Readymade::Operation
 end
 ```
 
+### Readymade::Controller::Serialization
+
+```ruby
+class MyController < ApplicationController
+  include Readymade::Controller::Serialization
+end
+```
+
+Serialization helpers for controllers.
+Dependencies that must be installed on your own:
+- [blueprinter](https://rubygems.org/gems/blueprinter/)
+- [pagy](https://rubygems.org/gems/pagy)
+- [api-pagination](https://rubygems.org/gems/api-pagination)
+
+### Readymade::Model::ApiAttachable
+
+Add base64 attachments format for your models
+
+```ruby
+class User < ApplicationRecord
+  has_one_attached :avatar
+  has_many_attached :images
+  include Readymade::Model::ApiAttachable
+  # must be included after has_one_attached, has_many_attached declaration
+  # api_file = {
+  #   base64: 'iVBORw0KGgoAAA....',
+  #   filename: 'my_avatar.png'
+  # }
+  # record.avatar = api_file 🎉
+end
+```
+
+copy [spec/support/api_attachable.rb](./spec/support/api_attachable.rb)
+```ruby
+def to_api_file(file)
+  { base64: Base64.encode64(file.read), filename: file.original_filename }
+end
+```
+```ruby
+# rspec example
+let(:avatar) { Rack::Test::UploadedFile.new(Rails.root.join('spec/support/assets/test-image.png'), 'image/png') }
+let(:params) { { user: attributes_for(:user).merge!(avatar: to_api_file(avatar)) } }
+```
 
 ## Development
 

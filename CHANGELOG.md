@@ -1,6 +1,12 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.3] - 2022-05-03
+
+### Features
+
+* Add `Readymade::Model::ApiAttachable` - add base64 format to your ActiveStorage
+
 ## [0.2.1] - 2022-04-21
 
 ### Improvements
