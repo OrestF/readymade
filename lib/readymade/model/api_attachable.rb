@@ -22,7 +22,7 @@ module Readymade
         has_many_attached_reflections.map(&:name).each do |attachment_method_name|
           define_method("#{attachment_method_name}=") do |attachment_file|
             attachment_file = Array.wrap(attachment_file).map do |af|
-              api_attachment_to_uploaded(af) if api_attachable_format?(af)
+              api_attachable_format?(af) ? api_attachment_to_uploaded(af) : af
             end
             super(attachment_file)
           end

@@ -1,6 +1,12 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.4] - 2022-05-12
+
+### Fixes
+
+* Fix ApiAttachable empty attachments for non hash assignement
+
 ## [0.2.3] - 2022-05-03
 
 ### Features
