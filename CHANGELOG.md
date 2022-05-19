@@ -1,6 +1,12 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.5] - 2022-05-19
+
+# Improvements
+
+* Form#required_attributes returns `[]` if `params[:_destroy]` present
+
 ## [0.2.4] - 2022-05-12
 
 ### Fixes

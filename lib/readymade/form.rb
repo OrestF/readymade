@@ -45,6 +45,8 @@ module Readymade
     end
 
     def required_attributes
+      return [] if params.try(:[], :_destroy).present?
+
       @required_attributes ||= self.class::REQUIRED_ATTRIBUTES
     end
 
@@ -79,9 +81,17 @@ module Readymade
 
     # copy errors from nested forms into parent form
     def sync_nested_errors(nested_forms)
-      nested_forms.each do |n_form|
-        n_form.errors.each do |code, text|
-          errors.add("#{n_form.humanized_name}.#{code}", text)
+      if rails_errors_v2?
+        nested_forms.each do |n_form|
+          n_form.errors.each do |code|
+            errors.add("#{n_form.humanized_name}.#{code.attribute}", code.message)
+          end
+        end
+      else
+        nested_forms.each do |n_form|
+          n_form.errors.each do |code, text|
+            errors.add("#{n_form.humanized_name}.#{code}", text)
+          end
         end
       end
 
@@ -92,7 +102,7 @@ module Readymade
     def sync_errors(from: self, to: record)
       return if [from, to].any?(&:blank?)
 
-      if Rails.version.to_f > 6.0
+      if rails_errors_v2?
         from.errors.messages.each do |key, values|
           Array.wrap(values).uniq.each do |uv|
             to.errors.add(key, uv)
@@ -143,6 +153,12 @@ module Readymade
     # use the following syntax if attribute is a collection: { attr_collection_name: [MyFormClass] }
     def nested_forms_mapping
       {}
+    end
+
+    private
+
+    def rails_errors_v2?
+      Rails.version.to_f > 6.0
     end
 
     # EXAMPLE
