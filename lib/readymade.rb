@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'readymade/model/api_attachable'
+require 'readymade/model/filterable'
 require 'readymade/controller/serialization'
 require 'readymade/action'
 require 'readymade/form'

@@ -195,6 +195,21 @@ let(:avatar) { Rack::Test::UploadedFile.new(Rails.root.join('spec/support/assets
 let(:params) { { user: attributes_for(:user).merge!(avatar: to_api_file(avatar)) } }
 ```
 
+### Readymade::Model::Filterable
+
+```ruby
+class User < ApplicationRecord
+  include Readyamde::Model::Filterable
+  
+  scope :by_status, ->(status) { where(status: status) }
+  scope :by_role, ->(role) { where(role: role) }
+end
+```
+
+```ruby
+User.all.filter_collection({ by_status: 'active', by_role: 'manager' })
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

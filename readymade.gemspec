@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   end
   spec.files << 'lib/readymade/model/api_attachable.rb'
+  spec.files << 'lib/readymade/model/filterable.rb'
   spec.files << 'lib/readymade/controller/serialization.rb'
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }

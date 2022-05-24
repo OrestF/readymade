@@ -1,9 +1,15 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.6] - 2022-05-24
+
+### Features
+
+* Add `Readymade::Model::Filterable` - model concern for scopes filtering
+
 ## [0.2.5] - 2022-05-19
 
-# Improvements
+### Improvements
 
 * Form#required_attributes returns `[]` if `params[:_destroy]` present
 
