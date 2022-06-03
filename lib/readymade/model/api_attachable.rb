@@ -49,7 +49,7 @@ module Readymade
         ActionDispatch::Http::UploadedFile.new(
           tempfile: Tempfile.new(attachment_file[:filename]).tap do |tf|
             tf.binmode
-            tf.write(Base64.decode64(attachment_file[:base64]))
+            tf.write(Base64.decode64(attachment_file[:base64].split('base64,')[-1]))
           end,
           filename: attachment_file[:filename],
           type: Mime::Type.lookup_by_extension(File.extname(attachment_file[:filename])[1..]).to_s
@@ -58,4 +58,3 @@ module Readymade
     end
   end
 end
-

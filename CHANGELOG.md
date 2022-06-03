@@ -1,6 +1,12 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.7] - 2022-06-03
+
+### Improvement
+
+* Update `Readymade::Model::ApiAttachable` to support browser native base64 encoding
+
 ## [0.2.6] - 2022-05-24
 
 ### Features
