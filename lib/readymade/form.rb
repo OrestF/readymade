@@ -57,10 +57,10 @@ module Readymade
         if form_class.is_a?(Array)
           n_forms = if params[attr].is_a?(Hash)
                       # { 0 => {id: 1, name: 'my name'}, 1 => { id: 2, name: 'other name' }}
-                      params[attr].map { |_i, attrs| form_class[0].new(attrs) }
+                      params[attr].map { |_i, attrs| form_class[0].new(attrs, **nested_forms_extra_attributes) }
                     else
                       # [{id: 1, name: 'my name'}, { id: 2, name: 'other name' }]
-                      params[attr].map { |attrs| form_class[0].new(attrs) }
+                      params[attr].map { |attrs| form_class[0].new(attrs, **nested_forms_extra_attributes) }
                     end
           @nested_forms.push(*n_forms)
           define_singleton_method("#{attr}_forms") { n_forms }
@@ -152,6 +152,11 @@ module Readymade
     # define nested forms in format { attr_name: MyFormClass }
     # use the following syntax if attribute is a collection: { attr_collection_name: [MyFormClass] }
     def nested_forms_mapping
+      {}
+    end
+
+    # list nested_forms_extra_attributes in format { attr_name: attr_value } to have access in nested forms
+    def nested_forms_extra_attributes
       {}
     end
 
