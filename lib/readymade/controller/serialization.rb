@@ -24,7 +24,7 @@ module Readymade
         args.extract_options!.then do |options|
           render_json(
             serialize_collection(paginate(collection, options), options).merge(count: collection.count),
-            :ok
+            options[:status] || :ok
           )
         end
       end
