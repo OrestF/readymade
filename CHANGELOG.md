@@ -1,5 +1,17 @@
-Changelog
+# Changelog
+
 All notable changes to this project will be documented in this file.
+
+## [0.2.8] - 2022-11-24
+
+### Improvement
+
+#### Add rails generators
+
+* `rails g readymade:install` - will generate base infrastructure
+* `rails g readymade:operation -r your_record -t create |  update | destroy | your_type`
+* `rails g readymade:form -r your_record -t your_type`
+* `rails g readymade:action -r your_record -t your_type`
 
 ## [0.2.7] - 2022-06-03
 

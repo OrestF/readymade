@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+class <%= options['record_name'].pluralize.camelize %>::Forms::<%= (options['form_name'] || options['operation_name']).camelize %> < BaseOperation
+  PERMITTED_ATTRIBUTES = %i[].freeze
+  REQUIRED_ATTRIBUTES = %i[].freeze
+end

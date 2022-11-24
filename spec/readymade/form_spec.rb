@@ -2,6 +2,8 @@
 
 RSpec.describe Readymade::Form do
   describe '#new' do
+    subject(:instance) { described_class.new(params, **args) }
+
     let(:params) do
       {
         string: 'some string',
@@ -21,11 +23,9 @@ RSpec.describe Readymade::Form do
     end
 
     it 'creates record, params and args attr_accessors' do
-      instance = described_class.new(params, **args)
-
-      expect(instance.respond_to?(:params)).to eq(true)
-      expect(instance.respond_to?(:args)).to eq(true)
-      expect(instance.respond_to?(:record)).to eq(true)
+      expect(instance.respond_to?(:params)).to be(true)
+      expect(instance.respond_to?(:args)).to be(true)
+      expect(instance.respond_to?(:record)).to be(true)
     end
   end
 end

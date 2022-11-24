@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+class <%= options['record_name'].pluralize.camelize %>::Actions::<%= options['action_name'].camelize %> < BaseAction
+  def call
+    # TODO: implement your custom logic
+  end
+end

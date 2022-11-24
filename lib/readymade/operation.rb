@@ -33,6 +33,14 @@ module Readymade
       record.save
     end
 
+    def save_record!
+      record.save!
+    end
+
+    def destroy_record!
+      record.destroy!
+    end
+
     def response(status, *args)
       Response.new(status, *args)
     end

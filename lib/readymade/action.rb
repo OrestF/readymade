@@ -6,8 +6,8 @@ module Readymade
   class Action
     class NonKeywordArgumentsError < StandardError; end
 
-    def self.call(*args, &block)
-      new(*args, &block).call
+    def self.call(...)
+      new(...).call
     end
 
     attr_reader :args, :data

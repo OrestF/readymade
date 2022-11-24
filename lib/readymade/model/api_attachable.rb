@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/concern'
 
 module Readymade
@@ -32,11 +34,15 @@ module Readymade
       class_methods do
         # rubocop:disable Naming/PredicateName
         def has_one_attached_reflections
-          reflect_on_all_attachments.filter { |association| association.instance_of?(ActiveStorage::Reflection::HasOneAttachedReflection) }
+          reflect_on_all_attachments.filter do |association|
+            association.instance_of?(ActiveStorage::Reflection::HasOneAttachedReflection)
+          end
         end
 
         def has_many_attached_reflections
-          reflect_on_all_attachments.filter { |association| association.instance_of?(ActiveStorage::Reflection::HasManyAttachedReflection) }
+          reflect_on_all_attachments.filter do |association|
+            association.instance_of?(ActiveStorage::Reflection::HasManyAttachedReflection)
+          end
         end
         # rubocop:enable Naming/PredicateName
       end

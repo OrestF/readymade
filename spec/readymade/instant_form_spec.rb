@@ -23,9 +23,9 @@ RSpec.describe Readymade::InstantForm do
     it 'creates record, params and args attr_accessors' do
       instance = described_class.new(params, **args)
 
-      expect(instance.respond_to?(:params)).to eq(true)
-      expect(instance.respond_to?(:args)).to eq(true)
-      expect(instance.respond_to?(:record)).to eq(true)
+      expect(instance.respond_to?(:params)).to be(true)
+      expect(instance.respond_to?(:args)).to be(true)
+      expect(instance.respond_to?(:record)).to be(true)
     end
 
     context 'without permitted_params' do
@@ -69,7 +69,7 @@ RSpec.describe Readymade::InstantForm do
         instance = described_class.new(params, **args.merge!(required: required))
 
         expect(instance.params.keys).to include(:empty_value)
-        expect(instance.validate).to eq(false)
+        expect(instance.validate).to be(false)
         expect(instance.errors.messages.keys).to match_array(%i[empty_value])
         expect(instance.errors.messages[:empty_value]).to match_array(["can't be blank"])
       end

@@ -109,13 +109,15 @@ module Readymade
           end
         end
       else
-        errors = from.errors.instance_variable_get('@messages').to_h
-        errors.merge!(to.errors.instance_variable_get('@messages').to_h)
+        messages = '@messages'
+        errors = from.errors.instance_variable_get(messages).to_h
+        errors.merge!(to.errors.instance_variable_get(messages).to_h)
 
-        to.errors.instance_variable_set('@messages', errors)
+        to.errors.instance_variable_set(messages, errors)
         to.errors.messages.transform_values!(&:uniq) # Does not work with rails 6.1
       end
     rescue FrozenError => _e
+      # TODO
     end
 
     def humanized_name
@@ -180,6 +182,7 @@ module Readymade
     def self.form_options(**args)
       Readymade::Form::FormOptions.new(**args.merge!(form_class: self))
     end
+
     class FormOptions
       attr_reader :args
 
@@ -193,9 +196,11 @@ module Readymade
       end
 
       def to_h
-        raise Readymade::Error.new('define form_options on your form') unless (f = @f_class.new({}, **@args)).respond_to?(:form_options)
+        @f_class.new({}, **@args).then do |f|
+          raise Readymade::Error, 'define form_options on your form' unless f.respond_to?(:form_options)
 
-        f.form_options
+          f.form_options
+        end
       end
 
       def as_json(options = {})
