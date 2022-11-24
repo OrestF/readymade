@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/concern'
 
 module Readymade
@@ -24,7 +26,9 @@ module Readymade
           filtering_params.permit! if filtering_params.respond_to?(:permit)
 
           regular_params = filtering_params.select { |_key, value| value.present? }.to_h
-          custom_params = filtering_params.to_h.select { |_key, value| value.is_a?(String) && value.start_with?('without_') }.values
+          custom_params = filtering_params.to_h.select do |_key, value|
+            value.is_a?(String) && value.start_with?('without_')
+          end.values
 
           send_chain(regular_params, send_chain(custom_params)).distinct
         end

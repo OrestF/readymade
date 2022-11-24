@@ -9,3 +9,6 @@
 
 # rspec failure tracking
 .rspec_status
+
+.idea/
+.byebug_history

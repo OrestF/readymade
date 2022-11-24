@@ -1,10 +1,10 @@
 # Readymade
 
-[![Gem Version](https://badge.fury.io/rb/readymade.png)](https://badge.fury.io/rb/readymade)
+[![Gem Version](https://badge.fury.io/rb/readymade.svg)](https://badge.fury.io/rb/readymade)
 
 This gems contains basic components to follow [ABDI architecture](https://github.com/OrestF/OrestF/blob/master/abdi/ABDI_architecture.md)
 
-### Tested with ruby:
+## Tested with ruby
 
 - 3.1
 - 3.0
@@ -20,20 +20,31 @@ gem 'readymade'
 
 And then execute:
 
-    $ bundle install
+```ruby
+bundle install
+```
 
 Or install it yourself as:
 
-    $ gem install readymade
+```ruby
+gem install readymade
+```
 
 ## Usage
 
 Inherit your components from:
-* `Readymade::Response`
-* `Readymade::Form`
-* `Readymade::InstantForm`
-* `Readymade::Action`
-* `Readymade::Operation`
+
+- `Readymade::Response`
+- `Readymade::Form`
+- `Readymade::InstantForm`
+- `Readymade::Action`
+- `Readymade::Operation`
+
+Run the generator:
+
+```ruby
+rails generate readymade:install
+```
 
 ### Readymade::Response
 
@@ -50,6 +61,7 @@ response.data # { errors: { some: 'errors' } }
 ### Readymade::Form
 
 Check more form features examples in `lib/readymade/form.rb`
+
 ```ruby
 class Orders::Forms::Create < Readymade::Form
   PERMITTED_ATTRIBUTES = %i[email name category country customer]
@@ -61,8 +73,11 @@ end
 order_form = Orders::Forms::Create.new(params, order: order, validate_customer: false)
 
 order_form.valid? # true
+```
 
-
+Generator:
+```ruby
+rails g readymade:form -r order -t create
 ```
 
 #### form_options
@@ -73,7 +88,7 @@ order_form.valid? # true
 class MyForm < Readymade::Form
   PERMITTED_ATTRIBUTES = %i[email name category country]
   REQUIRED_ATTRIBUTES = %i[email]
-  
+
   def form_options
     {
       categories: args[:company].categories,
@@ -122,6 +137,11 @@ class Orders::Actions::SendNotifications < Readymade::Action
 end
 ```
 
+Generator:
+```ruby
+rails g readymade:action -r order -t send_notifications
+```
+
 ```ruby
 response = Orders::Actions::SendNotifications.call(order: order)
 
@@ -134,6 +154,7 @@ response.data[:any_other_data]
 ### Readymade::Operation
 
 Provides set of help methods like: `build_form`, `form_valid?`, `validation_fail`, `save_record`, etc.
+
 ```ruby
 class Orders::Operations::Create < Readymade::Operation
   def call
@@ -151,6 +172,11 @@ class Orders::Operations::Create < Readymade::Operation
 end
 ```
 
+Generator:
+```ruby
+rails g readymade:operation -r order -t create
+```
+
 ### Readymade::Controller::Serialization
 
 ```ruby
@@ -161,6 +187,7 @@ end
 
 Serialization helpers for controllers.
 Dependencies that must be installed on your own:
+
 - [blueprinter](https://rubygems.org/gems/blueprinter/)
 - [pagy](https://rubygems.org/gems/pagy)
 - [api-pagination](https://rubygems.org/gems/api-pagination)
@@ -184,11 +211,13 @@ end
 ```
 
 copy [spec/support/api_attachable.rb](./spec/support/api_attachable.rb)
+
 ```ruby
 def to_api_file(file)
   { base64: Base64.encode64(file.read), filename: file.original_filename }
 end
 ```
+
 ```ruby
 # rspec example
 let(:avatar) { Rack::Test::UploadedFile.new(Rails.root.join('spec/support/assets/test-image.png'), 'image/png') }
@@ -200,7 +229,7 @@ let(:params) { { user: attributes_for(:user).merge!(avatar: to_api_file(avatar))
 ```ruby
 class User < ApplicationRecord
   include Readyamde::Model::Filterable
-  
+
   scope :by_status, ->(status) { where(status: status) }
   scope :by_role, ->(role) { where(role: role) }
 end
@@ -218,8 +247,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/OrestF/readymade. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/readymade/blob/master/CODE_OF_CONDUCT.md).
-
+Bug reports and pull requests are welcome on GitHub at <https://github.com/OrestF/readymade>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/readymade/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 

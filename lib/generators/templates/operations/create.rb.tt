@@ -1,0 +1,24 @@
+# frozen_string_literal: true
+
+class <%= options['record_name'].pluralize.camelize %>::Operations::<%= options['operation_name'].camelize %> < BaseOperation
+  def call
+    build_record
+    return validation_fail unless form_valid?
+
+    assign_attributes
+    return validation_fail unless record_valid?
+
+    save_record!
+    success(record: record)
+  end
+
+  private
+
+  def build_record
+    @record = <%= options['record_name'].classify %>.new
+  end
+
+  def form_class
+    <%= options['record_name'].pluralize.camelize %>::Forms::<%= options['operation_name'].camelize %>
+  end
+end

@@ -2,6 +2,10 @@
 
 RSpec.describe Readymade::Response do
   describe '#new' do
+    subject(:response) do |ex|
+      described_class.new(ex.metadata[:status], **args)
+    end
+
     let(:args) do
       {
         string: 'some string',
@@ -11,54 +15,38 @@ RSpec.describe Readymade::Response do
       }
     end
 
-    context 'success' do
-      let(:status) { 'success' }
-
+    context 'when success', status: 'success' do
       it 'creates data object and status method' do
-        response = described_class.new(status, **args)
-
-        expect(response.success?).to eq(true)
-        expect(response.fail?).to eq(false)
-        expect(response.custom_status?).to eq(false)
+        expect(response.success?).to be(true)
+        expect(response.fail?).to be(false)
+        expect(response.custom_status?).to be(false)
         expect(response.data).to eq(args)
       end
     end
 
-    context 'success with hash argument' do
-      let(:status) { 'success' }
-
+    context 'when success with hash argument', status: 'success' do
       it 'creates data object and status method' do
-        response = described_class.new(status, args)
-
-        expect(response.success?).to eq(true)
-        expect(response.fail?).to eq(false)
-        expect(response.custom_status?).to eq(false)
+        expect(response.success?).to be(true)
+        expect(response.fail?).to be(false)
+        expect(response.custom_status?).to be(false)
         expect(response.data).to eq(args)
       end
     end
 
-    context 'fail' do
-      let(:status) { 'fail' }
-
+    context 'when fail', status: 'fail' do
       it 'creates data object and status method' do
-        response = described_class.new(status, **args)
-
-        expect(response.success?).to eq(false)
-        expect(response.fail?).to eq(true)
-        expect(response.custom_status?).to eq(false)
+        expect(response.success?).to be(false)
+        expect(response.fail?).to be(true)
+        expect(response.custom_status?).to be(false)
         expect(response.data).to eq(args)
       end
     end
 
-    context 'fail' do
-      let(:status) { 'custom_status' }
-
+    context 'when fail', status: 'custom_status' do
       it 'creates data object and status method' do
-        response = described_class.new(status, **args)
-
-        expect(response.success?).to eq(false)
-        expect(response.fail?).to eq(false)
-        expect(response.custom_status?).to eq(true)
+        expect(response.success?).to be(false)
+        expect(response.fail?).to be(false)
+        expect(response.custom_status?).to be(true)
         expect(response.data).to eq(args)
       end
     end
