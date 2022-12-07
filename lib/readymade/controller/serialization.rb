@@ -21,15 +21,12 @@ module Readymade
       end
 
       def collection_response(collection, *args)
-        options = args.extract_options!
-
-        render_json(
-          {
-            (options.delete(:root).presence || :items) => serialize_collection(paginate(collection, options), options),
-            count: collection.count
-          },
-          options[:status] || :ok
-        )
+        args.extract_options!.then do |options|
+          render_json(
+            serialize_collection(paginate(collection, options), options).merge(count: collection.count),
+            options[:status] || :ok
+          )
+        end
       end
 
       def render_json(message, status)

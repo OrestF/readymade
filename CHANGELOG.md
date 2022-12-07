@@ -1,6 +1,12 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.8] - 2022-11-10
+
+### Fixes
+
+* Fix `Readymade::Controller::Serialization` collection_response method raised an error.
+
 ## [0.2.7] - 2022-06-03
 
 ### Improvement
