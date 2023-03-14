@@ -2,8 +2,8 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in lead.gemspec
+# Specify your gem's dependencies in readymade.gemspec
 gemspec
-
-gem 'activemodel'
-gem 'activejob'
+#
+# gem 'activemodel'
+# gem 'activejob'

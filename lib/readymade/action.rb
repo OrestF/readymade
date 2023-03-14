@@ -29,7 +29,7 @@ module Readymade
     def call; end
 
     def call_async
-      Readymade::BackgroundJob.perform_later(class_name: self.class.name, **args)
+      ::Readymade::BackgroundJob.perform_later(class_name: self.class.name, **args)
     end
 
     def response(status, *args)

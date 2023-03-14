@@ -1,6 +1,10 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2023-03-14
+
+* Add `.call_async` method to `Readymade::Action` to run service in background
+
 ## [0.2.8] - 2022-11-10
 
 ### Fixes

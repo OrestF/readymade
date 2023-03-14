@@ -2,6 +2,8 @@ PATH
   remote: .
   specs:
     readymade (0.3.0)
+      activejob
+      activemodel
 
 GEM
   remote: https://rubygems.org/
@@ -47,8 +49,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activejob
-  activemodel
   byebug
   rake
   readymade!
