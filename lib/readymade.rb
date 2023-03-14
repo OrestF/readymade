@@ -3,6 +3,7 @@
 require 'readymade/model/api_attachable'
 require 'readymade/model/filterable'
 require 'readymade/controller/serialization'
+require 'readymade/background_job'
 require 'readymade/action'
 require 'readymade/form'
 require 'readymade/instant_form'
