@@ -64,5 +64,21 @@ RSpec.describe Readymade::Action do
         end
       end
     end
+
+    describe '#call_async' do
+      class TestCallMethod < Readymade::Action
+        def call
+          @args
+        end
+      end
+
+      subject { TestCallMethod.call_async(**args) }
+
+      it 'returns job_id' do
+        expect(subject.class).to eq(Readymade::BackgroundJob)
+        expect(subject.job_id.size).to eq(36)
+        expect(*subject.arguments).to eq(args.merge!(class_name: TestCallMethod.name))
+      end
+    end
   end
 end

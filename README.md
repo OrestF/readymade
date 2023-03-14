@@ -131,6 +131,23 @@ response.data[:record]
 response.data[:any_other_data]
 ```
 
+### `.call_async` - any action could we call async (using ActiveJob)
+
+```ruby
+class Orders::Actions::SendNotifications < Readymade::Action
+  def call
+    send_email
+    send_push
+    send_slack
+
+    response(:success, record: record, any_other_data: data)
+  end
+  ...
+end
+
+Orders::Actions::SendNotifications.call_async(order: order)
+```
+
 ### Readymade::Operation
 
 Provides set of help methods like: `build_form`, `form_valid?`, `validation_fail`, `save_record`, etc.
