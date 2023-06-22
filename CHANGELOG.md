@@ -1,6 +1,11 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2023-06-22
+
+* Add `.call!` method to `Readymade::Action` to raise an error if not success
+* Add `.call_async!` method to `Readymade::Action` to raise an error in background if not success
+
 ## [0.3.0] - 2023-03-14
 
 * Add `.call_async` method to `Readymade::Action` to run service in background

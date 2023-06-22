@@ -148,6 +148,44 @@ end
 Orders::Actions::SendNotifications.call_async(order: order)
 ```
 
+
+### `.call!` - raise error unless response is success
+(action must return Readymade::Response.new(:success))
+
+```ruby
+class Orders::Actions::SendNotifications < Readymade::Action
+  def call!
+    send_email
+    return response(:fail, errors: errors) unless email_sent?
+    send_push
+    send_slack
+
+    response(:success, record: record, any_other_data: data)
+  end
+  ...
+end
+
+Orders::Actions::SendNotifications.call!(order: order) # raise error if response is fail
+```
+### `.call_async!` - runs in background and raise error unless response is success
+(action must return Readymade::Response.new(:success))
+
+```ruby
+class Orders::Actions::SendNotifications < Readymade::Action
+  def call!
+    send_email
+    return response(:fail, errors: errors) unless email_sent?
+    send_push
+    send_slack
+
+    response(:success, record: record, any_other_data: data)
+  end
+  ...
+end
+
+Orders::Actions::SendNotifications.call_async!(order: order) # job will be failed
+```
+
 ### Readymade::Operation
 
 Provides set of help methods like: `build_form`, `form_valid?`, `validation_fail`, `save_record`, etc.

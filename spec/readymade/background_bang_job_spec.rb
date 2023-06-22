@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe Readymade::BackgroundJob do
-  class Dummy < Readymade::Action
+RSpec.describe Readymade::BackgroundBangJob do
+  class DummyBang < Readymade::Action
+    def call!
+      Readymade::Response.new(:success, string: @string, integer: @integer, array: @array)
+    end
   end
 
-  let(:dummy_class) { Dummy }
+  let(:dummy_class) { DummyBang }
   let(:args) do
     {
       string: 'some string',
@@ -15,7 +18,7 @@ RSpec.describe Readymade::BackgroundJob do
 
   describe '#perform_later' do
     it 'creates instance variables from arguments' do
-      allow_any_instance_of(DummyBang).to receive(:call_async).with(**args)
+      allow_any_instance_of(DummyBang).to receive(:call_async!).with(**args)
 
       res = described_class.perform_later(**args.merge!(class_name: dummy_class.name))
 
