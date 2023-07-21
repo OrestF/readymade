@@ -1,6 +1,10 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.3.6] - 2023-07-21
+
+* Add `queue_as: :name` argument to `Readymade::BackgroundJob` to select queue name when using `.call_async(args.merge(queue_as: :my_queue))`
+
 ## [0.3.5] - 2023-06-23
 
 * Add `.call!` method to `Readymade::Action` to raise an error if not success
