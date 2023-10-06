@@ -1,6 +1,10 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.3.8] - 2023-10-06
+
+* Add `conisder_success` argument to Response
+
 ## [0.3.7] - 2023-08-08
 
 * Fix invalid behaviour of `call!` method

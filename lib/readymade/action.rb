@@ -15,9 +15,9 @@ module Readymade
 
     def self.call!(*args, &block)
       new(*args, &block).call!.then do |res|
-        raise UnSuccessError unless res.try(:success?)
+        return res if res.try(:success?) || res.try(:consider_success?)
 
-        res
+        raise UnSuccessError
       end
     end
 

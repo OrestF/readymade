@@ -20,6 +20,7 @@ module Readymade
       raise NonKeywordArgumentsError if args.present? && !args[0].is_a?(Hash)
 
       @args = @data = args[0]
+      @consider_success = @args.delete(:consider_success) if @args.present?
 
       define_singleton_method("#{status}?") do
         true
@@ -28,6 +29,10 @@ module Readymade
 
     def errors
       args[:errors].presence || {}
+    end
+
+    def consider_success?
+      @consider_success
     end
 
     def method_missing(method_name, *args, &block)

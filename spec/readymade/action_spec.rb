@@ -156,6 +156,32 @@ RSpec.describe Readymade::Action do
           end
         end
       end
+
+      context 'with consider_success' do
+        class ConsiderSuccessTestCallMethod < Readymade::Action
+          def call!
+            @args
+
+            Readymade::Response.new(:my_status, **@args.merge!(consider_success: true))
+          end
+        end
+
+        it 'does not raise UnSuccess error' do
+          expect(ConsiderSuccessTestCallMethod.call!(**args)).to be_kind_of(Readymade::Response)
+        end
+
+        context 'with hash as arguments' do
+          it 'does not raise UnSuccess error' do
+            expect(ConsiderSuccessTestCallMethod.call!(args)).to be_kind_of(Readymade::Response)
+          end
+        end
+
+        context 'without arguments' do
+          it 'does not raise UnSuccess error' do
+            expect(ConsiderSuccessTestCallMethod.call!).to be_kind_of(Readymade::Response)
+          end
+        end
+      end
     end
   end
 end
