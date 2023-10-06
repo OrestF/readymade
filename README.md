@@ -169,6 +169,24 @@ end
 
 Orders::Actions::SendNotifications.call!(order: order) # raise error if response is fail
 ```
+
+### `.call` + `conisder_success: true`
+```ruby
+class Orders::Actions::SendNotifications < Readymade::Action
+  def call!
+    send_email
+    return response(:skip, consider_success: true) if skip_email?
+    send_push
+    send_slack
+
+    response(:success, record: record, any_other_data: data)
+  end
+  ...
+end
+
+Orders::Actions::SendNotifications.call!(order: order) # does not raise error if skip_email? returns true
+```
+
 ### `.call_async!` - runs in background and raise error unless response is success
 (action must return Readymade::Response.new(:success))
 
