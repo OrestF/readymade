@@ -284,6 +284,7 @@ end
 
 ```ruby
 User.all.filter_collection({ by_status: 'active', by_role: 'manager' })
+User.all.filter_collection({ by_status: 'active', by_role: 'manager' }, chain_with: :or) # active OR manager
 ```
 
 ## Development
