@@ -1,6 +1,10 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.3.9] - 2024-01-04
+
+* Update `Readymade::Model::Filterable` to support and/or joins
+
 ## [0.3.8] - 2023-10-06
 
 * Add `conisder_success` argument to Response
