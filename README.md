@@ -1,14 +1,14 @@
 # Readymade
 
-[![Gem Version](https://badge.fury.io/rb/readymade.png)](https://badge.fury.io/rb/readymade)
+[![Gem Version](https://badge.fury.io/rb/readymade.svg)](https://badge.fury.io/rb/readymade)
 
 This gems contains basic components to follow [ABDI architecture](https://github.com/OrestF/OrestF/blob/master/abdi/ABDI_architecture.md)
 
-### Tested with ruby:
+## Tested with ruby
 
-- 3.1
-- 3.0
-- 2.7
+* 3.1
+* 3.0
+* 2.7
 
 ## Installation
 
@@ -20,15 +20,20 @@ gem 'readymade'
 
 And then execute:
 
-    $ bundle install
+```bash
+bundle install
+```
 
 Or install it yourself as:
 
-    $ gem install readymade
+```bash
+gem install readymade
+```
 
 ## Usage
 
 Inherit your components from:
+
 * `Readymade::Response`
 * `Readymade::Form`
 * `Readymade::InstantForm`
@@ -50,6 +55,7 @@ response.data # { errors: { some: 'errors' } }
 ### Readymade::Form
 
 Check more form features examples in `lib/readymade/form.rb`
+
 ```ruby
 class Orders::Forms::Create < Readymade::Form
   PERMITTED_ATTRIBUTES = %i[email name category country customer]
@@ -61,8 +67,6 @@ end
 order_form = Orders::Forms::Create.new(params, order: order, validate_customer: false)
 
 order_form.valid? # true
-
-
 ```
 
 #### form_options
@@ -73,7 +77,7 @@ order_form.valid? # true
 class MyForm < Readymade::Form
   PERMITTED_ATTRIBUTES = %i[email name category country]
   REQUIRED_ATTRIBUTES = %i[email]
-  
+
   def form_options
     {
       categories: args[:company].categories,
@@ -105,7 +109,8 @@ end
 Permit params and validates presence inline
 
 ```ruby
-Readymade::InstantForm.new(my_params, permitted: %i[name phone], required: %i[email]) # permits: name, phone, email; validates on presence: email
+# permits: name, phone, email; validates on presence: email
+Readymade::InstantForm.new(my_params, permitted: %i[name phone], required: %i[email])
 ```
 
 ### Readymade::Action
@@ -145,13 +150,14 @@ class Orders::Actions::SendNotifications < Readymade::Action
   ...
 end
 
+# job will be executed in 'my_queue'
 Orders::Actions::SendNotifications.call_async(order: order)
-Orders::Actions::SendNotifications.call_async!(order: order, queue_as: :my_queue) # job will be executed in 'my_queue'
+Orders::Actions::SendNotifications.call_async!(order: order, queue_as: :my_queue)
 # Important! Make sure your sidekiq configuration has 'my_queue' queue
 ```
 
-
 ### `.call!` - raise error unless response is success
+
 (action must return Readymade::Response.new(:success))
 
 ```ruby
@@ -167,10 +173,12 @@ class Orders::Actions::SendNotifications < Readymade::Action
   ...
 end
 
-Orders::Actions::SendNotifications.call!(order: order) # raise error if response is fail
+# raise error if response is fail
+Orders::Actions::SendNotifications.call!(order: order)
 ```
 
 ### `.call` + `conisder_success: true`
+
 ```ruby
 class Orders::Actions::SendNotifications < Readymade::Action
   def call!
@@ -184,10 +192,12 @@ class Orders::Actions::SendNotifications < Readymade::Action
   ...
 end
 
-Orders::Actions::SendNotifications.call!(order: order) # does not raise error if skip_email? returns true
+# does not raise error if skip_email? returns true
+Orders::Actions::SendNotifications.call!(order: order)
 ```
 
 ### `.call_async!` - runs in background and raise error unless response is success
+
 (action must return Readymade::Response.new(:success))
 
 ```ruby
@@ -209,7 +219,9 @@ Orders::Actions::SendNotifications.call_async!(order: order) # job will be faile
 
 ### Readymade::Operation
 
-Provides set of help methods like: `build_form`, `form_valid?`, `validation_fail`, `save_record`, etc.
+Provides set of help methods like:
+`build_form`, `form_valid?`, `validation_fail`, `save_record`, etc.
+
 ```ruby
 class Orders::Operations::Create < Readymade::Operation
   def call
@@ -237,9 +249,10 @@ end
 
 Serialization helpers for controllers.
 Dependencies that must be installed on your own:
-- [blueprinter](https://rubygems.org/gems/blueprinter/)
-- [pagy](https://rubygems.org/gems/pagy)
-- [api-pagination](https://rubygems.org/gems/api-pagination)
+
+* [blueprinter](https://rubygems.org/gems/blueprinter/)
+* [pagy](https://rubygems.org/gems/pagy)
+* [api-pagination](https://rubygems.org/gems/api-pagination)
 
 ### Readymade::Model::ApiAttachable
 
@@ -260,15 +273,25 @@ end
 ```
 
 copy [spec/support/api_attachable.rb](./spec/support/api_attachable.rb)
+
 ```ruby
 def to_api_file(file)
   { base64: Base64.encode64(file.read), filename: file.original_filename }
 end
 ```
+
 ```ruby
 # rspec example
-let(:avatar) { Rack::Test::UploadedFile.new(Rails.root.join('spec/support/assets/test-image.png'), 'image/png') }
-let(:params) { { user: attributes_for(:user).merge!(avatar: to_api_file(avatar)) } }
+let(:avatar) do
+  Rack::Test::UploadedFile.new(
+    Rails.root.join('spec/support/assets/test-image.png'),
+    'image/png'
+  )
+end
+
+let(:params) do
+  { user: attributes_for(:user).merge!(avatar: to_api_file(avatar)) }
+end
 ```
 
 ### Readymade::Model::Filterable
@@ -276,7 +299,7 @@ let(:params) { { user: attributes_for(:user).merge!(avatar: to_api_file(avatar))
 ```ruby
 class User < ApplicationRecord
   include Readyamde::Model::Filterable
-  
+
   scope :by_status, ->(status) { where(status: status) }
   scope :by_role, ->(role) { where(role: role) }
 end
@@ -284,19 +307,29 @@ end
 
 ```ruby
 User.all.filter_collection({ by_status: 'active', by_role: 'manager' })
-User.all.filter_collection({ by_status: 'active', by_role: 'manager' }, chain_with: :or) # active OR manager
+# active OR manager
+User.all.filter_collection(
+  { by_status: 'active', by_role: 'manager' },
+  chain_with: :or
+)
 ```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies.
+Then, run `rake spec` to run the tests.
+You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`.
+To release a new version, update the version number in `version.rb`,
+and then run `bundle exec rake release`, which will create a git tag for the version,
+push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/OrestF/readymade. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/readymade/blob/master/CODE_OF_CONDUCT.md).
-
+Bug reports and pull requests are welcome on GitHub at <https://github.com/OrestF/readymade>.
+This project is intended to be a safe, welcoming space for collaboration,
+and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/readymade/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -304,4 +337,5 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Lead project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/readymade/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Lead project's codebases, issue trackers,
+chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/readymade/blob/master/CODE_OF_CONDUCT.md).
