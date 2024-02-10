@@ -12,7 +12,7 @@ RSpec.describe Readymade::BackgroundBangJob do
     {
       string: 'some string',
       integer: rand(1..10),
-      array: Array,
+      array: Array
     }
   end
 
