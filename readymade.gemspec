@@ -32,10 +32,10 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'byebug'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'byebug', '~> 11.1', '>= 11.1.3'
+  spec.add_development_dependency 'rake', '~> 13.1'
+  spec.add_development_dependency 'rspec', '~> 3.13'
 
-  spec.add_dependency "activemodel"
-  spec.add_dependency "activejob"
+  spec.add_dependency 'activejob'
+  spec.add_dependency 'activemodel'
 end
