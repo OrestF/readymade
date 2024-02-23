@@ -1,6 +1,10 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2024-02-23
+
+* Add `Reaymade::Model::ValidatableEnum` to validate enum values
+
 ## [0.3.9] - 2024-01-04
 
 * Update `Readymade::Model::Filterable` to support and/or joins

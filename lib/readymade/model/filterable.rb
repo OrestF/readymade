@@ -2,8 +2,6 @@ require 'active_support/concern'
 
 module Readymade
   module Model
-    # frozen_string_literal: true
-
     module Filterable
       extend ActiveSupport::Concern
 

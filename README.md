@@ -287,6 +287,26 @@ User.all.filter_collection({ by_status: 'active', by_role: 'manager' })
 User.all.filter_collection({ by_status: 'active', by_role: 'manager' }, chain_with: :or) # active OR manager
 ```
 
+### Readymade::Model::ValidatableEnum
+
+Instead of raised error when enum value is not valid, it adds error to the record
+
+```ruby
+class User < ApplicationRecord
+  include Readymade::Model::ValidatableEnum
+
+  enum status: { inactive: 0, active: 10 }
+  enum role: { customer: 0, admin: 10 }
+  validatable_enum :status, :role
+end
+```
+
+```ruby
+user = User.new(status: 'archived', role: 'superadmin')
+user.validate # false
+user.errors.full_messages  # ["Role 'superadmin' is not a valid role", "Status 'archived' is not a valid status"]
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
