@@ -1,6 +1,10 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.4.1] - 2024-07-15
+
+* Add `message` to `Reaymade::UnSuccessError` exception
+
 ## [0.4.0] - 2024-02-23
 
 * Add `Reaymade::Model::ValidatableEnum` to validate enum values

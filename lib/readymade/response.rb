@@ -28,7 +28,21 @@ module Readymade
     end
 
     def errors
+      return {} unless args.is_a?(Hash)
+
       args[:errors].presence || {}
+    end
+
+    def humanized_errors
+      humanize_errors(errors)
+    end
+
+    def humanize_errors(errors)
+      if errors.is_a?(ActiveModel::Errors)
+        errors.full_messages.join('. ')
+      else
+        errors.map { |k, values| "#{k.to_s.humanize}: #{values.join(', ')}" }.join('. ')
+      end
     end
 
     def consider_success?

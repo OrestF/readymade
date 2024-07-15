@@ -17,7 +17,7 @@ module Readymade
       new(*args, &block).call!.then do |res|
         return res if res.try(:success?) || res.try(:consider_success?)
 
-        raise UnSuccessError
+        raise UnSuccessError.new(res.humanized_errors)
       end
     end
 

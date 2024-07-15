@@ -55,7 +55,7 @@ module Readymade
                               end,
                               :ok
                             ]
-                          when :validation_fail, :bad_request
+                          when :validation_fail, :bad_request, :fail
                             [{ errors: response_obj.data[:errors] }, :bad_request]
                           else
                             [response_obj.status.to_sym, {}]
