@@ -2,17 +2,17 @@
 
 RSpec.describe Readymade::Form::FormOptions do
   class TestForm < Readymade::Form
-    PERMITTED_ATTRIBUTES = %i[attr1 attr2 attr3]
-    REQUIRED_ATTRIBUTES = %i[attr1 attr3]
+    PERMITTED_ATTRIBUTES = %i[attr1 attr2 attr3].freeze
+    REQUIRED_ATTRIBUTES = %i[attr1 attr3].freeze
   end
 
   class TestFormWithFormOptions < Readymade::Form
-    PERMITTED_ATTRIBUTES = %i[attr1 attr2 attr3]
-    REQUIRED_ATTRIBUTES = %i[attr1 attr3]
+    PERMITTED_ATTRIBUTES = %i[attr1 attr2 attr3].freeze
+    REQUIRED_ATTRIBUTES = %i[attr1 attr3].freeze
 
     def form_options
       {
-        attr1: [1,2,3],
+        attr1: [1, 2, 3],
         passed_argument: args[:passed_argument]
       }
     end
@@ -20,7 +20,7 @@ RSpec.describe Readymade::Form::FormOptions do
 
   let(:args) do
     {
-      attr1: [1,2,3],
+      attr1: [1, 2, 3],
       attr2: 'attr two',
       attr3: 'attr three',
       passed_argument: 'passed_argument'
