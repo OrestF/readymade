@@ -1,5 +1,8 @@
-Changelog
+# Changelog
+
 All notable changes to this project will be documented in this file.
+
+* Add github action to run tests for different ruby versions
 
 ## [0.4.1] - 2024-07-15
 
