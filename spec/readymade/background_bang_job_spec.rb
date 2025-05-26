@@ -37,6 +37,18 @@ RSpec.describe Readymade::BackgroundBangJob do
         expect(res.job_id.size).to eq(36)
         expect(res.queue_name).to eq('test')
       end
+
+      context 'when as job options provided' do
+        it 'uses the provided job options' do
+          job_options = { queue_as: :test }
+          allow_any_instance_of(Dummy).to receive(:call_async!).with(**args.merge!(job_options: job_options))
+
+          res = described_class.perform_later(**args.merge!(class_name: dummy_class.name, job_options: job_options))
+          expect(res.job_id.size).to eq(36)
+          expect(res.queue_name).to eq('test')
+          expect(res.arguments.first[:job_options]).to eq(job_options)
+        end
+      end
     end
   end
 end

@@ -1,6 +1,11 @@
 Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.4.2] - 2025-05-26
+
+* Add `job_options.discard_on` argument to `Readymade::BackgroundJob` to discard job on specific exceptions
+* Deprecated `queue_as` argument in `Readymade::BackgroundJob` in favor of `job_options.queue_as`
+
 ## [0.4.1] - 2024-07-15
 
 * Add `message` to `Reaymade::UnSuccessError` exception

@@ -146,7 +146,10 @@ class Orders::Actions::SendNotifications < Readymade::Action
 end
 
 Orders::Actions::SendNotifications.call_async(order: order)
-Orders::Actions::SendNotifications.call_async!(order: order, queue_as: :my_queue) # job will be executed in 'my_queue'
+Orders::Actions::SendNotifications.call_async!(order: order, job_options: { queue_as: :my_queue, discard_on: ActiveJob::DeserializationError})
+```
+
+```ruby
 # Important! Make sure your sidekiq configuration has 'my_queue' queue
 ```
 
