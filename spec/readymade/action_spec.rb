@@ -184,4 +184,29 @@ RSpec.describe Readymade::Action do
       end
     end
   end
+
+  describe '#within_transaction' do
+    let(:instance) { described_class.new }
+
+    before do
+      stub_const('ActiveRecord::Base', Class.new)
+      allow(ActiveRecord::Base).to receive(:transaction).and_yield
+    end
+
+    it 'delegates to ActiveRecord::Base.transaction' do
+      expect(ActiveRecord::Base).to receive(:transaction)
+      instance.within_transaction {}
+    end
+
+    it 'yields the block inside the transaction' do
+      yielded = false
+      instance.within_transaction { yielded = true }
+      expect(yielded).to be true
+    end
+
+    it 'returns the block result' do
+      result = instance.within_transaction { 42 }
+      expect(result).to eq(42)
+    end
+  end
 end

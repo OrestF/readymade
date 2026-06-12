@@ -2,6 +2,10 @@ Changelog
 All notable changes to this project will be documented in this file.
 
 
+## [0.4.5] - 2026-06-12
+
+* Add `within_transaction` method to `Readymade::Action` to run code within transaction block
+
 ## [0.4.4] - 2025-09-22
 
 * Add initializer generator

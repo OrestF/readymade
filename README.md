@@ -219,6 +219,23 @@ Orders::Actions::SendNotifications.call_async!(order: order) # job will be faile
 
 ```
 
+### `#within_transaction` - wraps a block in an `ActiveRecord::Base.transaction`
+
+Use `within_transaction` inside `call` to ensure multiple DB operations are atomic.
+
+```ruby
+class Orders::Actions::Create < Readymade::Action
+  def call
+    within_transaction do
+      order = Order.create!(order_params)
+      Payment.create!(order: order, amount: args[:amount])
+    end
+
+    response(:success, record: order)
+  end
+end
+```
+
 
 ---
 
